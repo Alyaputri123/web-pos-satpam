@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manajemen Data Pos Satpam - SMKN 1 Talaga</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* CSS GABUNGAN - Elegant dan Interaktif */
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%); /* Blueish Light Gradient */
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Align top */
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 900px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Header Styling */
+        header {
+            margin-bottom: 30px;
+            padding: 15px;
+            border-bottom: 3px solid #1e3a8a;
+        }
+        header h1 {
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 5px;
+        }
+        header p {
+            font-weight: 400;
+            color: #4b5563;
+        }
+
+        /* Tab Navigation (Interaktif) */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .tab-button {
+            padding: 10px 25px;
+            cursor: pointer;
+            background-color: #f3f4f6;
+            color: #4b5563;
+            border: none;
+            border-bottom: 3px solid transparent;
+            font-weight: 600;
+            font-size: 16px;
+            transition: background-color 0.3s, border-bottom-color 0.3s, color 0.3s;
+        }
+
+        .tab-button:first-child { border-radius: 8px 0 0 0; }
+        .tab-button:last-child { border-radius: 0 8px 0 0; }
+        
+        /* State Aktif */
+        .tab-button.active {
+            background-color: #ffffff;
+            color: #1e3a8a;
+            border-bottom-color: #1e3a8a;
+        }
+        .tab-button:hover:not(.active) {
+            background-color: #e5e7eb;
+        }
+
+        /* Card Container (Elegant) */
+        .card {
+            background: #ffffff;
+            border-radius: 0 0 8px 8px; /* Sudut bawah mengikuti tab */
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            text-align: left;
+        }
+
+        .tab-content {
+            display: none;
+            padding-top: 10px;
+        }
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Form Styling */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+            outline: none;
+        }
+
+        .btn-submit {
+            padding: 12px 25px;
+            background-color: #10b981; /* Hijau Emerald */
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            background-color: #059669;
+        }
+        .btn-submit:active {
+            transform: scale(0.99);
+        }
+
+        /* Tabel Riwayat (Data Simulasi) */
+        .history h3 {
+            margin-top: 30px;
+            margin-bottom: 15px;
+            color: #1e3a8a;
+            font-weight: 600;
+        }
+        .history table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        .history th, .history td {
+            padding: 10px;
+            border: 1px solid #e5e7eb;
+            text-align: left;
+        }
+        .history th {
+            background-color: #f3f4f6;
+            color: #374151;
+            font-weight: 600;
+        }
+        .history tr:nth-child(even) {
+            background-color: #f9fafb;
+        }
+        .history table tbody tr:hover {
+            background-color: #f0f4f8; /* Efek hover pada baris */
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .status-danger { background-color: #fee2e2; color: #dc2626; } /* Merah Muda */
+        .status-warning { background-color: #fef3c7; color: #d97706; } /* Kuning Muda */
+
+        /* Notifikasi Toast (Elegant) */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background-color: #3b82f6; /* Biru Primer */
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            font-size: 15px;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.4s, transform 0.4s;
+        }
+        
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <header>
+            <h1>SISTEM MANAJEMEN DATA POS SATPAM</h1>
+            <p>SMK NEGERI 1 TALAGA</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-button active" data-tab="tabTamu">1. Pencatatan Tamu</button>
+            <button class="tab-button" data-tab="tabInsiden">2. Pencatatan Insiden</button>
+        </div>
+
+        <div class="card">
+            <div id="tabTamu" class="tab-content active">
+                <form id="formTamu">
+                    <div class="form-group">
+                        <label for="namaTamu">Nama Lengkap Tamu</label>
+                        <input type="text" id="namaTamu" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="tujuanTamu">Tujuan Kunjungan</label>
+                        <select id="tujuanTamu" required>
+                            <option value="" disabled selected>Pilih Tujuan</option>
+                            <option value="Guru">Bertemu Guru/Staf</option>
+                            <option value="Administrasi">Urusan Administrasi</option>
+                            <option value="Lainnya">Lainnya</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="waktuTamu">Waktu Masuk</label>
+                        <input type="text" id="waktuTamu" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="catatanTamu">Catatan Khusus</label>
+                        <textarea id="catatanTamu" rows="2"></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">Catat Tamu Masuk</button>
+                </form>
+
+                <div class="history">
+                    <h3>Riwayat Tamu Hari Ini (Simulasi)</h3>
+                    <div style="overflow-x: auto;">
+                        <table id="tabelRiwayatTamu">
+                            <thead>
+                                <tr>
+                                    <th>Waktu Masuk</th>
+                                    <th>Nama</th>
+                                    <th>Tujuan</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tabInsiden" class="tab-content">
+                <form id="formInsiden">
+                    <div class="form-group">
+                        <label for="jenisInsiden">Jenis Insiden</label>
+                        <select id="jenisInsiden" required>
+                            <option value="" disabled selected>Pilih Jenis</option>
+                            <option value="Darurat">Darurat (Kecelakaan/Kesehatan)</option>
+                            <option value="Kehilangan">Kehilangan Barang/Aset</option>
+                            <option value="Pelanggaran">Pelanggaran Tata Tertib</option>
+                            <option value="Lainnya">Lainnya</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="lokasiInsiden">Lokasi</label>
+                        <input type="text" id="lokasiInsiden" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="waktuInsiden">Waktu Kejadian</label>
+                        <input type="text" id="waktuInsiden" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="deskripsiInsiden">Deskripsi Detail</label>
+                        <textarea id="deskripsiInsiden" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit" style="background-color: #dc2626;">Laporkan Insiden</button>
+                </form>
+
+                <div class="history">
+                    <h3>Daftar Insiden Terakhir (Simulasi)</h3>
+                    <div style="overflow-x: auto;">
+                        <table id="tabelRiwayatInsiden">
+                            <thead>
+                                <tr>
+                                    <th>Waktu</th>
+                                    <th>Jenis</th>
+                                    <th>Lokasi</th>
+                                    <th>Prioritas</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="toastNotification" class="toast"></div>
+
+    <script>
+        // JAVASCRIPT GABUNGAN - Simulasi Database dengan Local Storage
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Variabel Global ---
+            const formTamu = document.getElementById('formTamu');
+            const formInsiden = document.getElementById('formInsiden');
+            const waktuTamuInput = document.getElementById('waktuTamu');
+            const waktuInsidenInput = document.getElementById('waktuInsiden');
+            const toastElement = document.getElementById('toastNotification');
+            const tabelRiwayatTamuBody = document.querySelector('#tabelRiwayatTamu tbody');
+            const tabelRiwayatInsidenBody = document.querySelector('#tabelRiwayatInsiden tbody');
+
+            // --- FUNGSI UTILITY ---
+            
+            // Format Waktu Real-Time
+            function getFormattedTime() {
+                const now = new Date();
+                const time = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+                const date = now.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' });
+                return `${date}, Pukul ${time}`;
+            }
+
+            // Update Waktu di Form
+            function updateFormTimes() {
+                const now = getFormattedTime();
+                waktuTamuInput.value = now;
+                waktuInsidenInput.value = now;
+            }
+
+            // Toast Notification
+            function showToast(message, isError = false) {
+                toastElement.textContent = message;
+                toastElement.style.backgroundColor = isError ? '#dc2626' : '#3b82f6';
+                toastElement.classList.add('show');
+                
+                setTimeout(() => {
+                    toastElement.classList.remove('show');
+                }, 3000);
+            }
+
+            // --- FUNGSI DATA SIMULASI (Local Storage) ---
+            
+            function loadData(key) {
+                const data = localStorage.getItem(key);
+                return data ? JSON.parse(data) : [];
+            }
+
+            function saveData(key, data) {
+                localStorage.setItem(key, JSON.stringify(data));
+            }
+
+            function renderTamu() {
+                const data = loadData('riwayatTamu');
+                tabelRiwayatTamuBody.innerHTML = '';
+
+                data.slice(0, 5).forEach(item => { // Tampilkan 5 data terbaru
+                    const row = tabelRiwayatTamuBody.insertRow();
+                    row.innerHTML = `
+                        <td>${item.waktu}</td>
+                        <td>${item.nama}</td>
+                        <td>${item.tujuan}</td>
+                        <td><span class="status-badge status-warning">MASUK</span></td>
+                    `;
+                });
+            }
+
+            function renderInsiden() {
+                const data = loadData('riwayatInsiden');
+                tabelRiwayatInsidenBody.innerHTML = '';
+
+                data.slice(0, 5).forEach(item => { // Tampilkan 5 data terbaru
+                    const priorityClass = item.jenis === 'Darurat' ? 'status-danger' : 'status-warning';
+                    const row = tabelRiwayatInsidenBody.insertRow();
+                    row.innerHTML = `
+                        <td>${item.waktu.split(',')[0]}</td>
+                        <td>${item.jenis}</td>
+                        <td>${item.lokasi}</td>
+                        <td><span class="status-badge ${priorityClass}">${item.jenis.toUpperCase()}</span></td>
+                    `;
+                });
+            }
+
+            // --- EVENT LISTENERS ---
+            
+            // 1. Tab Navigation (Interaktif)
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+                    this.classList.add('active');
+                    document.getElementById(this.dataset.tab).classList.add('active');
+                    
+                    // Render ulang data saat tab berganti
+                    if (this.dataset.tab === 'tabTamu') renderTamu();
+                    if (this.dataset.tab === 'tabInsiden') renderInsiden();
+                });
+            });
+
+            // 2. Form Pencatatan Tamu
+            formTamu.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const dataTamu = {
+                    id: Date.now(),
+                    waktu: waktuTamuInput.value,
+                    nama: document.getElementById('namaTamu').value,
+                    tujuan: document.getElementById('tujuanTamu').value,
+                    catatan: document.getElementById('catatanTamu').value || '-'
+                };
+                
+                const riwayatTamu = loadData('riwayatTamu');
+                riwayatTamu.unshift(dataTamu); // Tambah di awal
+                saveData('riwayatTamu', riwayatTamu);
+
+                showToast(`✅ Tamu ${dataTamu.nama} berhasil dicatat.`);
+                formTamu.reset();
+                updateFormTimes();
+                renderTamu();
+            });
+
+            // 3. Form Pencatatan Insiden
+            formInsiden.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const dataInsiden = {
+                    id: Date.now(),
+                    waktu: waktuInsidenInput.value,
+                    jenis: document.getElementById('jenisInsiden').value,
+                    lokasi: document.getElementById('lokasiInsiden').value,
+                    deskripsi: document.getElementById('deskripsiInsiden').value
+                };
+
+                const riwayatInsiden = loadData('riwayatInsiden');
+                riwayatInsiden.unshift(dataInsiden); // Tambah di awal
+                saveData('riwayatInsiden', riwayatInsiden);
+
+                showToast(`🔥 Insiden ${dataInsiden.jenis} di ${dataInsiden.lokasi} telah dilaporkan!`);
+                formInsiden.reset();
+                updateFormTimes();
+                renderInsiden();
+            });
+
+            // --- INISIALISASI ---
+            setInterval(updateFormTimes, 1000); // Update waktu setiap detik
+            updateFormTimes();
+            renderTamu(); // Tampilkan data tamu saat halaman pertama dimuat
+        });
+    </script>
+</body>
+</html>
