@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manajemen Data Pos Satpam - SMKN 1 Talaga</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* CSS GABUNGAN - Mobile First, Elegant, dan Background Foto Sekolah */
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            position: relative;
+            background-image: url('data:image/jpeg;base64,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'); 
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 20px 10px;
+            font-size: 14px;
+        }
+        
+        /* Overlay Gelap Transparan di atas foto latar */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6); 
+            z-index: -1; 
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 900px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.8s ease-out forwards;
+            z-index: 10;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Header Styling */
+        header {
+            margin-bottom: 20px;
+            padding: 10px;
+            border-bottom: 3px solid #ffcc00;
+            color: white;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+        }
+        header h1 {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #ffffff;
+        }
+        header p {
+            font-size: 0.9em;
+            color: #ddd;
+        }
+
+        /* Tab Navigation */
+        .tabs { display: flex; justify-content: center; margin-bottom: 0; }
+        .tab-button {
+            flex-grow: 1;
+            padding: 10px 15px;
+            cursor: pointer;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #4b5563;
+            border: none;
+            border-bottom: 3px solid transparent;
+            font-weight: 600;
+            font-size: 0.9em;
+            transition: background-color 0.3s, border-bottom-color 0.3s, color 0.3s;
+        }
+        
+        .tab-button.active {
+            background-color: #ffffff;
+            color: #1e3a8a;
+            border-bottom-color: #1e3a8a;
+        }
+        .tab-button:hover:not(.active) {
+            background-color: #e5e7eb;
+        }
+
+        /* Card Container (Elegant) */
+        .card {
+            background: #ffffff;
+            border-radius: 0 0 10px 10px;
+            padding: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            text-align: left;
+        }
+
+        .tab-content { display: none; padding-top: 10px; }
+        .tab-content.active { display: block; }
+
+        /* Form Styling */
+        .form-group { margin-bottom: 12px; }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        input[type="text"], input[type="number"], select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9em;
+            transition: border-color 0.3s;
+        }
+
+        /* Tombol Aksi Masuk/Keluar */
+        .action-container { display: flex; gap: 10px; margin-top: 15px; }
+        .btn-masuk, .btn-keluar {
+            flex-grow: 1;
+            padding: 12px;
+            font-weight: 600;
+            border: none;
+            border-radius: 6px;
+            transition: background-color 0.3s;
+            cursor: pointer;
+        }
+        .btn-masuk { background-color: #10b981; color: white; }
+        .btn-masuk:hover { background-color: #059669; }
+        
+        .btn-keluar { background-color: #fca5a5; color: #7f1d1d; }
+        .btn-keluar:hover { background-color: #f87171; }
+
+        /* Tabel Riwayat Responsif */
+        .history h3 {
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: #1e3a8a;
+            font-size: 1.1em;
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        
+        .history table {
+            width: 100%;
+            min-width: 700px;
+            border-collapse: collapse;
+            font-size: 0.85em;
+        }
+        .history th, .history td {
+            padding: 8px;
+            border: 1px solid #e5e7eb;
+            text-align: left;
+            vertical-align: top;
+        }
+        .history th {
+            background-color: #f3f4f6;
+            color: #374151;
+            font-weight: 600;
+        }
+        .history tr:nth-child(even) { background-color: #f9fafb; }
+        
+        .action-btn {
+            padding: 4px 8px;
+            border: none;
+            background-color: #3b82f6;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8em;
+            transition: background-color 0.2s;
+            margin-right: 5px;
+        }
+        .action-btn:hover { background-color: #2563eb; }
+        
+        /* Tombol Khusus untuk Detail Insiden */
+        .btn-detail-insiden { background-color: #991b1b; }
+        .btn-detail-insiden:hover { background-color: #7f1d1d; }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 6px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+        .status-danger { background-color: #fee2e2; color: #dc2626; }
+        .status-success { background-color: #d1fae5; color: #059669; }
+        .status-warning { background-color: #fef3c7; color: #d97706; }
+        
+        /* Styling Petugas Piket */
+        .petugas-piket {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .petugas-piket h4 {
+            color: #1e3a8a;
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
+        .petugas-list {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .petugas-list li {
+            background-color: #e0eafc;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            font-weight: 600;
+            color: #3b82f6;
+            animation: pulse 1s infinite alternate; /* Animasi bergerak ringan */
+        }
+        @keyframes pulse {
+            from { transform: scale(1); opacity: 0.8; }
+            to { transform: scale(1.03); opacity: 1; }
+        }
+
+        /* Notifikasi Toast */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background-color: #3b82f6;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            font-size: 15px;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.4s, transform 0.4s;
+        }
+        
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+
+        /* MEDIA QUERY untuk Tablet dan Desktop */
+        @media (min-width: 768px) {
+            body { padding: 40px 20px; }
+            header h1 { font-size: 2em; }
+            .petugas-piket { padding: 20px; }
+            .history table { min-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <header>
+            <h1>SISTEM MANAJEMEN DATA POS SATPAM</h1>
+            <p>SMK NEGERI 1 TALAGA</p>
+        </header>
+
+        <div class="petugas-piket">
+            <h4>👮 Petugas Piket Hari Ini: <span id="hariPiketDisplay"></span></h4>
+            <ul class="petugas-list" id="petugasList">
+                </ul>
+        </div>
+        
+        <div class="tabs" style="margin-top: 20px;">
+            <button class="tab-button active" data-tab="tabTamu">1. Manajemen Tamu</button>
+            <button class="tab-button" data-tab="tabInsiden">2. Laporan Insiden</button>
+        </div>
+
+        <div class="card">
+            <div id="tabTamu" class="tab-content active">
+                <form id="formTamu">
+                    <div class="form-group">
+                        <label for="namaTamu">Nama Lengkap Tamu</label>
+                        <input type="text" id="namaTamu" required placeholder="Nama Lengkap sesuai KTP/SIM">
+                    </div>
+                    <div class="form-group">
+                        <label for="tujuanTamu">Tujuan Kunjungan</label>
+                        <select id="tujuanTamu" required>
+                            <option value="" disabled selected>Pilih Tujuan</option>
+                            <option value="Guru/Staf">Bertemu Guru/Staf</option>
+                            <option value="Administrasi">Urusan Administrasi</option>
+                            <option value="AntarJemput">Antar/Jemput Siswa</option>
+                            <option value="Kurir">Kurir/Pengiriman</option>
+                            <option value="Lainnya">Lainnya</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="catatanTamu">Catatan Keperluan</label>
+                        <textarea id="catatanTamu" rows="2" placeholder="Detail keperluan"></textarea>
+                    </div>
+
+                    <div class="action-container">
+                        <button type="submit" class="btn-masuk" data-aksi="MASUK">MASUK <span id="waktuMasukDisplay"></span></button>
+                        <button type="button" id="btnKeluar" class="btn-keluar">KELUAR</button>
+                    </div>
+                </form>
+
+                <div class="history">
+                    <h3>Daftar Tamu Aktif (Belum Keluar)</h3>
+                    <div class="table-wrapper">
+                        <table id="tabelRiwayatTamu">
+                            <thead>
+                                <tr>
+                                    <th>Waktu Masuk</th>
+                                    <th>Nama Tamu</th>
+                                    <th>Tujuan</th>
+                                    <th>Aksi Keluar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                </tbody>
+                        </table>
+                    </div>
+                    <h3 style="margin-top: 30px;">Riwayat Tamu Selesai (5 Terakhir)</h3>
+                    <div class="table-wrapper">
+                        <table id="tabelRiwayatTamuSelesai">
+                            <thead>
+                                <tr>
+                                    <th>Waktu Keluar</th>
+                                    <th>Nama</th>
+                                    <th>Durasi</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tabInsiden" class="tab-content">
+                <form id="formInsiden">
+                    <div class="form-group">
+                        <label for="jenisInsiden">Jenis Insiden</label>
+                        <select id="jenisInsiden" required>
+                            <option value="" disabled selected>Pilih Jenis</option>
+                            <option value="Darurat">Darurat (Kecelakaan/Kesehatan)</option>
+                            <option value="Kehilangan">Kehilangan Barang/Aset</option>
+                            <option value="Pelanggaran">Pelanggaran Tata Tertib</option>
+                            <option value="Akses Ilegal">Akses Ilegal/Orang Mencurigakan</option>
+                            <option value="Lainnya">Lainnya</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="lokasiInsiden">Lokasi</label>
+                        <input type="text" id="lokasiInsiden" required placeholder="Cth: Area Parkir Motor, Depan Lab RPL">
+                    </div>
+                    <div class="form-group">
+                        <label for="waktuInsiden">Waktu Kejadian</label>
+                        <input type="text" id="waktuInsiden" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="deskripsiInsiden">Deskripsi Detail & Tindakan</label>
+                        <textarea id="deskripsiInsiden" rows="4" required placeholder="Jelaskan kronologi kejadian dan tindakan yang sudah diambil"></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit" style="background-color: #dc2626;">Laporkan Insiden</button>
+                </form>
+
+                <div class="history">
+                    <h3>Daftar Laporan Insiden Terakhir</h3>
+                    <div class="table-wrapper">
+                        <table id="tabelRiwayatInsiden">
+                            <thead>
+                                <tr>
+                                    <th>Waktu</th>
+                                    <th>Jenis</th>
+                                    <th>Lokasi</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="toastNotification" class="toast"></div>
+
+    <script>
+        // JAVASCRIPT LENGKAP - Fungsionalitas Masuk/Keluar, Detail Klik, dan Local Storage
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Variabel Global & DOM Elements ---
+            const forms = { tamu: document.getElementById('formTamu'), insiden: document.getElementById('formInsiden') };
+            const waktuDisplay = document.getElementById('waktuMasukDisplay');
+            const waktuInsidenInput = document.getElementById('waktuInsiden');
+            const btnKeluar = document.getElementById('btnKeluar');
+            const toastElement = document.getElementById('toastNotification');
+            const tabelRiwayatTamuBody = document.querySelector('#tabelRiwayatTamu tbody');
+            const tabelRiwayatTamuSelesaiBody = document.querySelector('#tabelRiwayatTamuSelesai tbody');
+            const tabelRiwayatInsidenBody = document.querySelector('#tabelRiwayatInsiden tbody');
+            const petugasListElement = document.getElementById('petugasList');
+            const hariPiketDisplay = document.getElementById('hariPiketDisplay');
+
+
+            // --- JADWAL PIKET STATIS MINGGUAN (Dibuat Dinamis) ---
+            // Hari dimulai dari 0 (Minggu) sampai 6 (Sabtu)
+            const SCHEDULE = [
+                { hari: 'Minggu', petugas: ['Bapak duleh','Bapak Didi','Bapak Sopwan'] },
+                { hari: 'Senin', petugas: ['Bapak Pazar', 'Bapak Duleh'] },
+                { hari: 'Selasa', petugas: ['Bapak Sopwan', 'Bapak Didi'] },
+                { hari: 'Rabu', petugas: ['Bapak Pazar', 'Bapak Duleh'] },
+                { hari: 'Kamis', petugas: ['Bapak Sopwan', 'Bapak Didi'] },
+                { hari: 'Jumat', petugas: ['Bapak Pazar', 'Bapak Duleh'] },
+                { hari: 'Sabtu', petugas: ['LIBUR'] }
+            ];
+
+            // --- FUNGSI UTILITY ---
+            
+            function getFormattedTime() {
+                const now = new Date();
+                const time = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+                const date = now.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' });
+                return { raw: now, display: `${date}, Pukul ${time}`, dayIndex: now.getDay() };
+            }
+
+            function updateFormTimes() {
+                const { display } = getFormattedTime();
+                waktuDisplay.textContent = `(${display.split(',')[1].trim()})`;
+                waktuInsidenInput.value = display;
+            }
+
+            function showToast(message, isError = false) {
+                toastElement.textContent = message;
+                toastElement.style.backgroundColor = isError ? '#dc2626' : '#3b82f6';
+                toastElement.classList.add('show');
+                setTimeout(() => { toastElement.classList.remove('show'); }, 3000);
+            }
+
+            function hitungDurasi(masukTime, keluarTime) {
+                const diffMs = keluarTime - masukTime;
+                const hours = Math.floor(diffMs / (1000 * 60 * 60));
+                const minutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+                if (hours === 0 && minutes === 0) return 'Kurang dari 1m';
+                return `${hours > 0 ? hours + 'j ' : ''}${minutes}m`;
+            }
+
+            // --- FUNGSI DINAMIS: RENDER PETUGAS PIKET ---
+            function renderPetugasPiket() {
+                const dayIndex = getFormattedTime().dayIndex;
+                const scheduleToday = SCHEDULE[dayIndex];
+                
+                hariPiketDisplay.textContent = scheduleToday.hari.toUpperCase();
+                petugasListElement.innerHTML = '';
+                
+                if (scheduleToday.petugas[0] === 'LIBUR') {
+                     petugasListElement.innerHTML = '<li>Hari Libur Sekolah</li>';
+                } else {
+                    scheduleToday.petugas.forEach(petugas => {
+                        const li = document.createElement('li');
+                        li.textContent = petugas;
+                        petugasListElement.appendChild(li);
+                    });
+                }
+            }
+
+
+            // --- FUNGSI DATA SIMULASI (Local Storage) ---
+            
+            function loadData(key) {
+                const data = localStorage.getItem(key);
+                return data ? JSON.parse(data) : [];
+            }
+
+            function saveData(key, data) {
+                localStorage.setItem(key, JSON.stringify(data));
+            }
+
+            // Render Daftar Tamu Aktif (Belum Keluar)
+            function renderTamuAktif() {
+                const data = loadData('riwayatTamu').filter(item => !item.waktuKeluar);
+                tabelRiwayatTamuBody.innerHTML = '';
+
+                if (data.length === 0) {
+                    tabelRiwayatTamuBody.innerHTML = '<tr><td colspan="4" style="text-align:center; color: #dc2626; font-style: italic;">Tidak ada tamu yang sedang aktif saat ini.</td></tr>';
+                    btnKeluar.disabled = true;
+                    btnKeluar.style.backgroundColor = '#ccc';
+                    btnKeluar.style.color = '#777';
+                    return;
+                }
+                btnKeluar.disabled = false;
+                btnKeluar.style.backgroundColor = '#fca5a5';
+                btnKeluar.style.color = '#7f1d1d';
+
+                data.forEach(item => {
+                    const row = tabelRiwayatTamuBody.insertRow();
+                    row.innerHTML = `
+                        <td>${item.waktuMasuk.display.split(',')[1].trim()}</td>
+                        <td>${item.nama}</td>
+                        <td>${item.tujuan}</td>
+                        <td>
+                            <button class="action-btn" data-id="${item.id}" onclick="markKeluar(this.dataset.id)">Keluar</button>
+                        </td>
+                    `;
+                });
+            }
+
+            // Render Riwayat Tamu Selesai
+            function renderTamuSelesai() {
+                const data = loadData('riwayatTamu').filter(item => item.waktuKeluar).slice(0, 5);
+                tabelRiwayatTamuSelesaiBody.innerHTML = '';
+                
+                if (data.length === 0) {
+                    tabelRiwayatTamuSelesaiBody.innerHTML = '<tr><td colspan="4" style="text-align:center; color: #777; font-style: italic;">Belum ada riwayat tamu selesai.</td></tr>';
+                    return;
+                }
+
+                data.forEach(item => {
+                    const durasi = hitungDurasi(item.waktuMasuk.raw, item.waktuKeluar.raw);
+                    const row = tabelRiwayatTamuSelesaiBody.insertRow();
+                    row.innerHTML = `
+                        <td>${item.waktuKeluar.display.split(',')[1].trim()}</td>
+                        <td>${item.nama}</td>
+                        <td>${durasi}</td>
+                        <td><span class="status-badge status-success">SELESAI</span></td>
+                    `;
+                });
+            }
+
+            // Render Tabel Insiden
+            function renderInsiden() {
+                const data = loadData('riwayatInsiden');
+                tabelRiwayatInsidenBody.innerHTML = '';
+
+                if (data.length === 0) {
+                    tabelRiwayatInsidenBody.innerHTML = '<tr><td colspan="4" style="text-align:center; color: #777; font-style: italic;">Belum ada laporan insiden hari ini.</td></tr>';
+                    return;
+                }
+
+                data.slice(0, 5).forEach(item => {
+                    const priorityClass = item.jenis === 'Darurat' ? 'status-danger' : 'status-warning';
+                    const priorityText = item.jenis === 'Darurat' ? 'DARURAT' : 'PERHATIAN';
+                    const row = tabelRiwayatInsidenBody.insertRow();
+                    row.innerHTML = `
+                        <td>${item.waktu.split(',')[1].trim()}</td>
+                        <td>${item.jenis}</td>
+                        <td>${item.lokasi}</td>
+                        <td>
+                            <span class="status-badge ${priorityClass}" style="margin-right: 5px;">${priorityText}</span>
+                            <button class="action-btn btn-detail-insiden" onclick="showInsidenDetail('${item.id}')">Detail</button>
+                        </td>
+                    `;
+                });
+            }
+            
+            // --- FUNGSI KHUSUS TAMPIL DETAIL INSIDEN (Bisa Diklik) ---
+            window.showInsidenDetail = function(id) {
+                const data = loadData('riwayatInsiden');
+                const item = data.find(i => i.id == id);
+
+                if (item) {
+                    const alertMessage = `
+**LAPORAN INSIDEN DETAIL**
+
+Waktu: ${item.waktu}
+Jenis: ${item.jenis}
+Lokasi: ${item.lokasi}
+
+**Deskripsi Kejadian & Tindakan:**
+${item.deskripsi}
+                    `;
+                    alert(alertMessage);
+                } else {
+                    showToast("Detail insiden tidak ditemukan.", true);
+                }
+            }
+
+
+            // --- EVENT LISTENERS GLOBAL ---
+            
+            // 1. Tab Navigation
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+                    this.classList.add('active');
+                    document.getElementById(this.dataset.tab).classList.add('active');
+                });
+            });
+
+            // 2. Form Pencatatan Tamu (Aksi MASUK)
+            forms.tamu.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const { raw: rawTime, display: displayTime } = getFormattedTime();
+                const namaInput = document.getElementById('namaTamu').value.trim();
+                const tamuAktif = loadData('riwayatTamu').filter(t => !t.waktuKeluar);
+
+                if (tamuAktif.some(t => t.nama.toLowerCase() === namaInput.toLowerCase())) {
+                    showToast(`⚠️ Tamu ${namaInput} sudah tercatat MASUK. Lakukan aksi KELUAR terlebih dahulu.`, true);
+                    return;
+                }
+                
+                const dataTamu = {
+                    id: Date.now(),
+                    waktuMasuk: { raw: rawTime.getTime(), display: displayTime },
+                    waktuKeluar: null,
+                    nama: namaInput,
+                    tujuan: document.getElementById('tujuanTamu').value,
+                    catatan: document.getElementById('catatanTamu').value || '-'
+                };
+                
+                const riwayatTamu = loadData('riwayatTamu');
+                riwayatTamu.unshift(dataTamu);
+                saveData('riwayatTamu', riwayatTamu);
+
+                showToast(`✅ Tamu ${dataTamu.nama} (MASUK) berhasil dicatat.`);
+                forms.tamu.reset();
+                updateFormTimes();
+                renderTamuAktif();
+                renderTamuSelesai();
+            });
+            
+            // 3. Form Pencatatan Insiden
+            forms.insiden.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const dataInsiden = {
+                    id: Date.now(),
+                    waktu: waktuInsidenInput.value,
+                    jenis: document.getElementById('jenisInsiden').value,
+                    lokasi: document.getElementById('lokasiInsiden').value,
+                    deskripsi: document.getElementById('deskripsiInsiden').value
+                };
+
+                const riwayatInsiden = loadData('riwayatInsiden');
+                riwayatInsiden.unshift(dataInsiden);
+                saveData('riwayatInsiden', riwayatInsiden);
+
+                showToast(`🔥 Insiden ${dataInsiden.jenis} berhasil dilaporkan!`);
+                forms.insiden.reset();
+                updateFormTimes();
+                renderInsiden();
+            });
+
+            // 4. Aksi KELUAR (Tombol Utama di Form)
+            btnKeluar.addEventListener('click', function() {
+                const tamuAktif = loadData('riwayatTamu').filter(t => !t.waktuKeluar);
+                
+                if (tamuAktif.length === 0) {
+                    showToast("Tidak ada tamu yang tercatat masuk.", true);
+                    return;
+                }
+                
+                // Ambil tamu yang paling terakhir masuk untuk efisiensi
+                const latestTamu = tamuAktif[0]; 
+                
+                // Panggil fungsi markKeluar
+                markKeluar(latestTamu.id);
+            });
+
+
+            // --- FUNGSI KHUSUS MARK KELUAR ---
+            window.markKeluar = function(id) {
+                const riwayatTamu = loadData('riwayatTamu');
+                const index = riwayatTamu.findIndex(item => item.id == id);
+                
+                if (index !== -1 && !riwayatTamu[index].waktuKeluar) {
+                    const { raw: rawTime, display: displayTime } = getFormattedTime();
+                    
+                    riwayatTamu[index].waktuKeluar = { raw: rawTime.getTime(), display: displayTime };
+                    
+                    saveData('riwayatTamu', riwayatTamu);
+                    showToast(`Tamu ${riwayatTamu[index].nama} (KELUAR) berhasil dicatat.`);
+                    
+                    // Render ulang tabel
+                    renderTamuAktif();
+                    renderTamuSelesai();
+                } else if (index === -1) {
+                    showToast("Data tamu tidak ditemukan.", true);
+                }
+            }
+
+
+            // --- INISIALISASI (Agar Bergerak) ---
+            // Petugas piket harus dirender pertama
+            renderPetugasPiket(); 
+            
+            // Waktu & update formulir harus diperbarui setiap detik
+            setInterval(updateFormTimes, 1000); 
+            
+            updateFormTimes();
+            renderTamuAktif();
+            renderTamuSelesai();
+            renderInsiden();
+        });
+    </script>
+</body>
+</html>
